@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# CRA's configuration for Prettier and EsLint
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Eslint config :
 
-## Available Scripts
+  > `npx eslint --init`
 
-In the project directory, you can run:
+  - **How would you like to use ESLint?**  
+    _To check syntax, find problems and enforce code style_
+  - **What type of modules does your project use?**  
+    _Javascript module_
+  - **Which framework does your project use?**  
+    _React_
+  - **Does your project use TypeScript?**  
+    _No_
+  - **Where does your code run?**  
+    _Browser_
+  - **How would you like to define a style for your project?**  
+    _Use a popular style guide_
+  - **Which style guide do you want to follow?**  
+    _Airbnb_
+  - **What format do you want your config file to be in?**  
+    _JSON_
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Prettier config :
+  > `npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+- Create files .eslintignore .prettierignore in project root to ignore build and modules :
+  > ` build`  
+  > `node_modules`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+- Update eslint config in .eslintrc (many rules come from Oclock Yo template (spé react)) :
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  ```
+  {
+  "env": {
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  "browser": true,
+  "es2021": true
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  },
+  "extends": ["react-app", "airbnb", "prettier"],
+  "parserOptions": {
+  "ecmaFeatures": {
+  "jsx": true
+  },
+  "ecmaVersion": 13,
+  "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+  "prettier/prettier": [
+  "error",
+  {
+  "singleQuote": true
+  }
+  ],
+  "brace-style": ["error", "stroustrup"],
+  "no-param-reassign": [
+  "error",
+  {
+  "props": false
+  }
+  ],
+  "no-mixed-operators": [
+  "error",
+  {
+  "allowSamePrecedence": true
+  }
+  ],
+  "jsx-a11y/no-static-element-interactions": "off",
+  "jsx-a11y/href-no-hash": "off",
+  "jsx-a11y/anchor-is-valid": "off",
+  "jsx-a11y/mouse-events-have-key-events": "off",
+  "jsx-a11y/click-events-have-key-events": "off",
+  "jsx-a11y/no-noninteractive-element-interactions": "off",
+  "react/jsx-filename-extension": "off",
+  "react/forbid-prop-types": "off",
+  "react/no-access-state-in-setstate": "warn",
+  "react/jsx-one-expression-per-line": "off",
+  "react/destructuring-assignment": "warn",
+  "react/no-unescaped-entities": "off",
+  "react/jsx-props-no-spreading": "off",
+  "react/state-in-constructor": "off",
+  "func-names": "off",
+  "object-shorthand": "off"
+  }
+  }
 
-### `npm run eject`
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  - We can specify a severity for each Eslint rules :
+  - 0 or 'off' : rule is disabled
+  - 1 or 'warn' : rule violation causes a warn
+  - 2 or 'error' : rule violation causes an error with exit code 1
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Update prettier config in .prettierrc file :
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  ```
+  {
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "singleQuote": true
+  }
 
-## Learn More
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- In VSC, update the settings.json to autoformat on save or other options :
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ```
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  },
+  "[javascript]": {
+      "editor.formatOnSave": false
+  },
+  "eslint.codeAction.showDocumentation": {
+      "enable": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": [
+      "js"
+  ]
+  ```
